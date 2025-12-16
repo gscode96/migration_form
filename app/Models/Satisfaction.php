@@ -12,6 +12,8 @@ class Satisfaction extends Model
         'migration_id',
         'system_name',
         'usuclin',
+        'responsible',
+        'rapporteur',
         'data_integrity',
         'delivery_time',
         'communication',

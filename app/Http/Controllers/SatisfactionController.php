@@ -50,3 +50,15 @@ class SatisfactionController extends Controller
         return view('satisfaction.sucess');
     }
 }
+
+/* Incluir um novo registro de satisfação com tiker (exemplo de uso)
+use App\Models\Satisfaction;
+use Illuminate\Support\Str;
+
+Satisfaction::create([
+    'migration_id' => 'MIGD-02',
+    'system_name' => 'PersonalMed',
+    'usuclin' => 4956,
+    'token' => Str::uuid(),
+]);
+*/

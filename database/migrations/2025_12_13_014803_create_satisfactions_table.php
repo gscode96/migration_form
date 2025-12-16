@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     /**
      * Run the migrations.
      */
@@ -19,6 +18,8 @@ return new class extends Migration
             $table->string('migration_id')->unique(); # id da migracao associada ao formulario
             $table->string('system_name');
             $table->string('usuclin');
+            $table->string('responsible', 100);
+            $table->string('rapporteur', 100);
 
             # campos do formulario de satisfacao que serao preenchidos ou nao
             $table->tinyInteger('data_integrity')->nullable();
@@ -30,14 +31,6 @@ return new class extends Migration
             $table->timestamp('submitted_at')->nullable(); # usado para registrar se o formulario foi respondido
             $table->timestamps();
         });
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->timestamps();
-        });
-
 
 
     }

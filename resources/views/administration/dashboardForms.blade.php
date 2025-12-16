@@ -20,30 +20,7 @@
 <!-- CONTEÚDO -->
 <div class="content">
     <h1>Dashboard Administrativo</h1>
-
-    <!-- INDICADORES -->
-    <div class="cards">
-        <div class="card">
-            <h3>Formulários Enviados</h3>
-            <div class="value">{{ $totalSatisfactions }}</div>
-        </div>
-
-        <div class="card">
-            <h3>Formulários Respondidos</h3>
-            <div class="value">{{ $totalanswered }}</div>
-        </div>
-
-        <div class="card">
-            <h3>Média de Satisfação (Trimestre)</h3>
-            <div class="value">{{ $percentage }}%</div>
-        </div>
-
-        <div class="card">
-            <h3>Perda de Dados Reportada</h3>
-            <div class="value">{{ $totalLostData }}</div>
-        </div>
-    </div>
-
+    
     <!-- TABELA -->
     <div class="table-container">
         <h3>Últimos Formulários Respondidos</h3>

@@ -39,7 +39,9 @@
             Entrar
         </button>
     </form>
-
+    <div class="register-link">
+        <a href="{{ route('administration.users') }}">Não possui uma conta? Cadastre-se</a>
+    </div>
     <div class="footer-text">
         Sistema de Migração de Dados
     </div>

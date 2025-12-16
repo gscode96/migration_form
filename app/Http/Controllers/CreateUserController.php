@@ -15,7 +15,6 @@ class CreateUserController extends Controller
 
     public function createUser(Request $request)
     {
-        print_r("Entrou aqui");
         // Logic for handling user creation would go here
         $request->validate([
             'name' => 'required|string|max:255',
@@ -29,6 +28,6 @@ class CreateUserController extends Controller
             'password' =>  bcrypt($request->password),
         ]);
 
-        return redirect()->back()->with('success', 'User created successfully!');
+        return redirect()->intended(route('login'))->with('success', 'User created successfully!');
     }
 }

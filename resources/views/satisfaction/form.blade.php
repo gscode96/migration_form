@@ -19,9 +19,11 @@
         <div><strong>Cliente:</strong> {{ $satisfaction->usuclin ?? '---' }}</div>
         <div><strong>Sistema Legado:</strong> {{ $satisfaction->system_name ?? '---' }}</div>
         <div><strong>Migração:</strong> {{ $satisfaction->migration_id ?? '---' }}</div>
+        <div><strong>Responsável:</strong> {{ $satisfaction->responsible ?? '---' }}</div>
+        <div><strong>Relator:</strong> {{ $satisfaction->rapporteur ?? '---' }}</div>
     </div>
 
-    <form method="POST" action="/satisfaction/{{ $satisfaction->token }}">
+    <form method="POST" action="{{ route('satisfaction.submit', ['token' => $satisfaction->token]) }}">
         @csrf
 
         <!-- Perguntas escala 1 a 5 -->
