@@ -30,6 +30,16 @@ return new class extends Migration
             $table->timestamp('submitted_at')->nullable(); # usado para registrar se o formulario foi respondido
             $table->timestamps();
         });
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
+            $table->timestamps();
+        });
+
+
+
     }
 
     /**
