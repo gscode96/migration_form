@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Satisfaction extends Model
+class Form extends Model
 {
     #campos que podem ser preenchidos em massa de modo protegido
     protected $fillable = [

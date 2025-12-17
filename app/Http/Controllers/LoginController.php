@@ -28,7 +28,21 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             return redirect()->intended(route('dashboard'))->with('success', 'Login successful!');
+        } else {
+            return back()->withErrors([
+                'email' => 'E-mail ou senha inválidos.',
+            ])->withInput();
         }
 
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/administration/login')->with('success', 'Logged out successfully!');
     }
 }

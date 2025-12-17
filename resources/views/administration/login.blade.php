@@ -1,3 +1,10 @@
+@if ($errors->any())
+    <div class="alert alert-error">
+        {{ $errors->first() }}
+    </div>
+@endif
+
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -20,8 +27,12 @@
                 id="email" 
                 name="email" 
                 placeholder="seu@email.com" 
+                value="{{ old('email') }}"
                 required
             >
+            @error('email')
+                 <small class="error-text">{{ $message }}</small> 
+            @enderror
         </div>
 
         <div class="form-group">

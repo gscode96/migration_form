@@ -1,65 +1,34 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard | Migração de Dados</title>
-    <link rel="stylesheet" href="{{ asset('css/basic_dashboard.css') }}">
-</head>
-<body>
+@extends('administration.components.dashboard-layout')
 
-<!-- MENU -->
-<div class="sidebar">
-    <h2>Migração</h2>
-    <a href="#">Dashboard</a>
-    <a href="#">Formulários Respondidos</a>
-    <a href="#">Indicadores</a>
-    <a href="#">Relatórios</a>
-    <a href="#">Sair</a>
-</div>
+@section('content')
+<h1>Formulários</h1>
 
-<!-- CONTEÚDO -->
-<div class="content">
-    <h1>Dashboard Administrativo</h1>
-    
-    <!-- TABELA -->
-    <div class="table-container">
-        <h3>Últimos Formulários Respondidos</h3>
-        <br>
-
-        <table>
-            <thead>
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Usuclin</th>
+                <th>Sistema</th>
+                <th>Migração</th>
+                <th>Satisfação</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($forms as $form)
                 <tr>
-                    <th>Usuclin</th>
-                    <th>Sistema</th>
-                    <th>Migração</th>
-                    <th>Satisfação</th>
-                    <th>Status</th>
+                    <td>{{ $form->usuclin }}</td>
+                    <td>{{ $form->system_name }}</td>
+                    <td>{{ $form->migration_id }}</td>
+                    <td>{{ $form->overall_satisfaction ?? 'Pendente' }}</td>
+                    <td>
+                        <a href="{{ route('forms.show', $form->id) }}">
+                            Ver detalhes
+                        </a>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                <tr>@foreach ($satisfaction as $satisfaction_item)
-                    <td>{{ $satisfaction_item->usuclin ?? '---' }}</td>
-                    <td>{{ $satisfaction_item->system_name ?? '---' }}</td>
-                    <td>{{ $satisfaction_item->migration_id ?? '---' }}</td>
-                    <td>{{ $satisfaction_item->overall_satisfaction ?? '---' }}</td>
-
-                    @if ($satisfaction_item->overall_satisfaction)
-                        <td><span class="badge badge-success">Respondido</span></td> 
-                    @else
-                        <td><span class="badge badge-warning">Pendente</span></td>
-                    @endif
-                </tr>
-                    
-                @endforeach
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="footer">
-        Sistema de Migração de Dados
-    </div>
+            @endforeach
+        </tbody>
+    </table>
 </div>
-
-</body>
-</html>
+@endsection

@@ -16,14 +16,14 @@
 
     <!-- Informações da migração -->
     <div class="info">
-        <div><strong>Cliente:</strong> {{ $satisfaction->usuclin ?? '---' }}</div>
-        <div><strong>Sistema Legado:</strong> {{ $satisfaction->system_name ?? '---' }}</div>
-        <div><strong>Migração:</strong> {{ $satisfaction->migration_id ?? '---' }}</div>
-        <div><strong>Responsável:</strong> {{ $satisfaction->responsible ?? '---' }}</div>
-        <div><strong>Relator:</strong> {{ $satisfaction->rapporteur ?? '---' }}</div>
+        <div><strong>Cliente:</strong> {{ $form->usuclin ?? '---' }}</div>
+        <div><strong>Sistema Legado:</strong> {{ $form->system_name ?? '---' }}</div>
+        <div><strong>Migração:</strong> {{ $form->migration_id ?? '---' }}</div>
+        <div><strong>Responsável:</strong> {{ $form->responsible ?? '---' }}</div>
+        <div><strong>Relator:</strong> {{ $form->rapporteur ?? '---' }}</div>
     </div>
 
-    <form method="POST" action="{{ route('satisfaction.submit', ['token' => $satisfaction->token]) }}">
+    <form method="POST" action="{{ route('form.submit', ['token' => $form->token]) }}">
         @csrf
 
         <!-- Perguntas escala 1 a 5 -->

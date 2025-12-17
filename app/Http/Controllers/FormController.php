@@ -2,27 +2,53 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Satisfaction;
+use App\Models\Form;
+use App\Services\FormLinkService;
 use Illuminate\Http\Request;
 
-class SatisfactionController extends Controller
+class FormController extends Controller
 {
+    public function createForm(Request $request)
+    {
+
+        $request->validate([
+            'migration_id' => 'required|string',
+            'system_name' => 'required|string',
+            'usuclin' => 'required',
+            'responsible' => 'nullable|string',
+            'rapporteur' => 'nullable|string',
+        ]);
+
+        $link = FormLinkService::generate([
+            'migration_id' => $request->migration_id,
+            'system_name' => $request->system_name,
+            'usuclin' => $request->usuclin,
+            'responsible' => $request->responsible,
+            'rapporteur' => $request->rapporteur,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'form_link' => $link
+        ], 201);
+
+    }
     public function show($token)
     {
-        $satisfaction = Satisfaction::where('token', $token)->firstOrFail(); #busca o registro pelo token ou erro 404 se nao encontrar
+        $form = Form::where('token', $token)->firstOrFail(); #busca o registro pelo token ou erro 404 se nao encontrar
 
-        if ($satisfaction->submitted_at) {
+        if ($form->submitted_at) {
             return view('satisfaction.already_submitted'); #se ja tiver sido preenchido, mostra a view de ja preenchido
         }
-        return view('satisfaction.form', compact('satisfaction'));
+        return view('satisfaction.form', compact('form'));
 
     }
 
     public function save($token, Request $request)
     {
 
-        $satisfaction = Satisfaction::where('token', $token)->firstOrFail();
-        if ($satisfaction->submitted_at) {
+        $form = Form::where('token', $token)->firstOrFail();
+        if ($form->submitted_at) {
             return view('satisfaction.already_submitted'); #se ja tiver sido preenchido, mostra a view de ja preenchido
         }
 
@@ -37,7 +63,7 @@ class SatisfactionController extends Controller
         ]);
 
         # salva os dados no banco de dados e marca como preenchido
-        $satisfaction->update([
+        $form->update([
             'data_integrity' => $request->data_integrity,
             'delivery_time' => $request->delivery_time,
             'communication' => $request->communication,
@@ -49,16 +75,6 @@ class SatisfactionController extends Controller
 
         return view('satisfaction.sucess');
     }
+
+
 }
-
-/* Incluir um novo registro de satisfação com tiker (exemplo de uso)
-use App\Models\Satisfaction;
-use Illuminate\Support\Str;
-
-Satisfaction::create([
-    'migration_id' => 'MIGD-02',
-    'system_name' => 'PersonalMed',
-    'usuclin' => 4956,
-    'token' => Str::uuid(),
-]);
-*/

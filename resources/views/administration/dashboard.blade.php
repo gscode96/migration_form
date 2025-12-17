@@ -1,88 +1,64 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard | Migração de Dados</title>
-    <link rel="stylesheet" href="{{ asset('css/basic_dashboard.css') }}">
-</head>
-<body>
+@extends('administration.components.dashboard-layout')
 
-<!-- MENU -->
-<div class="sidebar">
-    <h2>Migração</h2>
-    <a href="#">Dashboard</a>
-    <a href="#">Formulários Respondidos</a>
-    <a href="#">Indicadores</a>
-    <a href="#">Relatórios</a>
-    <a href="#">Sair</a>
-</div>
+@section('title', 'Dashboard Administrativo')
 
-<!-- CONTEÚDO -->
-<div class="content">
-    <h1>Dashboard Administrativo</h1>
+@section('content')
 
-    <!-- INDICADORES -->
-    <div class="cards">
-        <div class="card">
-            <h3>Formulários Enviados</h3>
-            <div class="value">{{ $totalSatisfactions }}</div>
-        </div>
+<h1>Dashboard Administrativo</h1>
 
-        <div class="card">
-            <h3>Formulários Respondidos</h3>
-            <div class="value">{{ $totalanswered }}</div>
-        </div>
-
-        <div class="card">
-            <h3>Média de Satisfação (Trimestre)</h3>
-            <div class="value">{{ $percentage }}%</div>
-        </div>
-
-        <div class="card">
-            <h3>Perda de Dados Reportada</h3>
-            <div class="value">{{ $totalLostData }}</div>
-        </div>
+<div class="cards">
+    <div class="card">
+        <h3>Formulários Enviados</h3>
+        <div class="value">{{ $totalSatisfactions }}</div>
     </div>
 
-    <!-- TABELA -->
-    <div class="table-container">
-        <h3>Últimos Formulários Respondidos</h3>
-        <br>
+    <div class="card">
+        <h3>Formulários Respondidos</h3>
+        <div class="value">{{ $totalanswered }}</div>
+    </div>
 
-        <table>
-            <thead>
-                <tr>
-                    <th>Usuclin</th>
-                    <th>Sistema</th>
-                    <th>Migração</th>
-                    <th>Satisfação</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>@foreach ($satisfaction as $satisfaction_item)
-                    <td>{{ $satisfaction_item->usuclin ?? '---' }}</td>
-                    <td>{{ $satisfaction_item->system_name ?? '---' }}</td>
-                    <td>{{ $satisfaction_item->migration_id ?? '---' }}</td>
-                    <td>{{ $satisfaction_item->overall_satisfaction ?? '---' }}</td>
+    <div class="card">
+        <h3>Média de Satisfação (Trimestre)</h3>
+        <div class="value">{{ $percentage }}%</div>
+    </div>
 
-                    @if ($satisfaction_item->overall_satisfaction)
-                        <td><span class="badge badge-success">Respondido</span></td> 
+    <div class="card">
+        <h3>Perda de Dados Reportada</h3>
+        <div class="value">{{ $totalLostData }}</div>
+    </div>
+</div>
+
+<div class="table-container">
+    <h3>Últimos Formulários Respondidos</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Usuclin</th>
+                <th>Sistema</th>
+                <th>Migração</th>
+                <th>Satisfação</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach ($satisfaction as $item)
+            <tr>
+                <td>{{ $item->usuclin ?? '---' }}</td>
+                <td>{{ $item->system_name ?? '---' }}</td>
+                <td>{{ $item->migration_id ?? '---' }}</td>
+                <td>{{ $item->overall_satisfaction ?? '---' }}</td>
+                <td>
+                    @if ($item->overall_satisfaction)
+                        <span class="badge badge-success">Respondido</span>
                     @else
-                        <td><span class="badge badge-warning">Pendente</span></td>
+                        <span class="badge badge-warning">Pendente</span>
                     @endif
-                </tr>
-                    
-                @endforeach
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="footer">
-        Sistema de Migração de Dados
-    </div>
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 </div>
 
-</body>
-</html>
+@endsection
